@@ -34,7 +34,7 @@ void error(unsigned int line_num, char *file_name, char *opercode)
 		printf("Error: malloc failed\n");
 		break;
 		default:
-		printf("L%d: unknown instruction %s\n",line_num, opercode);
+		printf("L%d: unknown instruction %s\n", line_num, opercode);
 	}
 	exit(EXIT_FAILURE);
 }

@@ -7,18 +7,16 @@
 void test_file(char *file_name)
 {
 	FILE *ptr;
-	char *lineptr = NULL, *oper, *num;
-	size_t n = 0;
+	char lineptr[10000], *oper, *num;
 	unsigned int line_num;
 	stack_t *stack = NULL;
-	int errorr, n_error;
-	
-	data = 0;
+	int errorr, n_error = 0;
+
 	ptr = fopen(file_name, "r");
 	if (ptr == NULL)
 		error(-1, file_name, NULL);
-	
-	for (line_num = 1; getline(&lineptr, &n, ptr) != -1; line_num++)
+
+	for (line_num = 1; fgets(lineptr, sizeof(lineptr), ptr); line_num++)
 	{
 		if (lineptr == NULL)
 			error(-2, file_name, NULL);
@@ -28,9 +26,8 @@ void test_file(char *file_name)
 		if (oper)
 		{
 			num = strtok(NULL, " \t\n");
-			n_error = num_check(num);
+			data = num_check(num, &n_error);
 		}
-		free(lineptr);
 		if (n_error)
 		{
 			printf("L%u: usage: push integer\n", line_num);
@@ -79,9 +76,10 @@ int executing(char *oper, stack_t **stack, unsigned int line_num)
 /**
  * num_check - check if string contain numbers
  * @num: string to be checked
- * Return: 0 if string is number -1 if not
+ * @n_error: check error
+ * Return: number
  */
-int num_check(char *num)
+int num_check(char *num, int *n_error)
 {
 	int i;
 
@@ -90,8 +88,7 @@ int num_check(char *num)
 		if (num[i] == '-')
 			continue;
 		else if (num[i] < 48 || num[i] > 57)
-			return (-1);
+			*n_error = -1;
 	}
-	data = atoi(num);
-	return (0);
+	return (atoi(num));
 }

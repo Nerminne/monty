@@ -8,7 +8,7 @@
 void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *new_node;
-       	
+
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
@@ -34,7 +34,7 @@ void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *temp;
-	
+
 	temp = *stack;
 	if (temp == NULL)
 		exit(EXIT_FAILURE);
