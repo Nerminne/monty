@@ -28,7 +28,7 @@ void test_file(char *file_name)
 			num = strtok(NULL, " \t\n");
 			data = num_check(num, &n_error);
 		}
-		if (n_error)
+		if (n_error && data == -1)
 		{
 			printf("L%u: usage: push integer\n", line_num);
 			stack_free(stack);
@@ -47,7 +47,6 @@ void test_file(char *file_name)
 /**
  * executing - executing the operation
  * @oper: operation to be executed
- * @num: data
  * @stack: pointer to linked list
  * @line_num: line number
  * Return: 0 on success 1 on fail
@@ -83,12 +82,20 @@ int num_check(char *num, int *n_error)
 {
 	int i;
 
+	if (num == NULL)
+	{
+		*n_error = -1;
+		return (0);
+	}
 	for (i = 0; num[i]; i++)
 	{
 		if (num[i] == '-')
 			continue;
 		else if (num[i] < 48 || num[i] > 57)
+		{
 			*n_error = -1;
+			return (-1);
+		}
 	}
 	return (atoi(num));
 }

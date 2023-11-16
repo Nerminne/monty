@@ -36,8 +36,6 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	stack_t *temp;
 
 	temp = *stack;
-	if (temp == NULL)
-		exit(EXIT_FAILURE);
 	while (temp)
 	{
 		printf("%d\n", temp->n);
@@ -56,6 +54,7 @@ void pint(stack_t **stack, unsigned int line_number)
 		printf("%d\n", (*stack)->n);
 	else
 	{
+		stack_free(*stack)
 		printf("L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
@@ -80,10 +79,10 @@ void pop(stack_t **stack, unsigned int line_number)
 		}
 		else
 			*stack = NULL;
-		free(temp);
 	}
 	else
 	{
+		stack_free(*stack);
 		printf("L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}

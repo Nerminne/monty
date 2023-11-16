@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
- * stack_free: free all nodes
+ * stack_free - free all nodes
  * @stack: pointer to linked list
  * Return: nothing
  */
