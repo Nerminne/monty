@@ -87,3 +87,14 @@ void pop(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 }
+/**
+  * nop - do nothing
+  * @stack: pointer to linked list
+  * @line_number: line number
+  * Return: nothing
+  */
+void nop(__attribute__((unused)) stack_t **stack, unsigned int line_number)
+{
+	(void)line_number;
+}
+

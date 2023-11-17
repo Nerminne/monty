@@ -59,6 +59,12 @@ int executing(char *oper, stack_t **stack, unsigned int line_num)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"nop", nop},
+		{"sub", sub},
+		{"add", add},
+		{"swap", swap},
+		{"mod", mod},
+		{"mul", mul},
 		{NULL, NULL}
 	};
 	int i;
