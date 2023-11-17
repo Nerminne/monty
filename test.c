@@ -29,7 +29,7 @@ void test_file(char *file_name)
 			if (num)
 				data = num_check(num, &n_error);
 		}
-		if (n_error && data == -1)
+		if ((n_error && data == -1) || (strcmp(oper, "push") == 0 && num == NULL))
 		{
 			free(lineptr);
 			printf("L%u: usage: push integer\n", line_num);
