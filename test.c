@@ -85,7 +85,7 @@ int num_check(char *num, int *n_error)
 	if (num == NULL)
 	{
 		*n_error = -1;
-		return (0);
+		return (-1);
 	}
 	for (i = 0; num[i]; i++)
 	{
