@@ -101,6 +101,7 @@ void mod(stack_t **stack, unsigned int line_number)
 {
 	int modd;
 	stack_t *ptr;
+
 	if ((*stack)->next == NULL || *stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't mul, stack too short\n", line_number);
