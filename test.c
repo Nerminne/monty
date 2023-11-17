@@ -7,7 +7,8 @@
 void test_file(char *file_name)
 {
 	FILE *ptr;
-	char lineptr[10000], *oper, *num;
+	char *lineptr = NULL, *oper, *num;
+	size_t n = 0;
 	unsigned int line_num;
 	stack_t *stack = NULL;
 	int errorr, n_error = 0;
@@ -15,8 +16,7 @@ void test_file(char *file_name)
 	ptr = fopen(file_name, "r");
 	if (ptr == NULL)
 		error(-1, file_name, NULL);
-
-	for (line_num = 1; fgets(lineptr, sizeof(lineptr), ptr); line_num++)
+	for (line_num = 1; getline(&lineptr, &n, ptr) != -1; line_num++)
 	{
 		if (lineptr == NULL)
 			error(-2, file_name, NULL);
@@ -26,23 +26,24 @@ void test_file(char *file_name)
 		if (oper)
 		{
 			num = strtok(NULL, " \t\n");
-			data = num_check(num, &n_error);
+			if (num)
+				data = num_check(num, &n_error);
 		}
 		if (n_error && data == -1)
 		{
+			free(lineptr);
 			printf("L%u: usage: push integer\n", line_num);
-			stack_free(stack);
-			exit(EXIT_FAILURE);
+			stack_free(stack), exit(EXIT_FAILURE);
 		}
 		errorr = executing(oper, &stack, line_num);
 		if (errorr)
 		{
+			free(lineptr);
 			stack_free(stack);
 			error(line_num, file_name, oper);
 		}
 	}
-	fclose(ptr);
-	stack_free(stack);
+	fclose(ptr), free(lineptr), stack_free(stack);
 }
 /**
  * executing - executing the operation
@@ -82,11 +83,6 @@ int num_check(char *num, int *n_error)
 {
 	int i;
 
-	if (num == NULL)
-	{
-		*n_error = -1;
-		return (-1);
-	}
 	for (i = 0; num[i]; i++)
 	{
 		if (num[i] == '-')
