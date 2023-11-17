@@ -32,7 +32,7 @@ void test_file(char *file_name)
 		if ((n_error && data == -1) || (strcmp(oper, "push") == 0 && num == NULL))
 		{
 			free(lineptr);
-			printf("L%u: usage: push integer\n", line_num);
+			fprintf(stderr, "L%u: usage: push integer\n", line_num);
 			stack_free(stack), exit(EXIT_FAILURE);
 		}
 		errorr = executing(oper, &stack, line_num);

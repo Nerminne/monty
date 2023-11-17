@@ -25,16 +25,16 @@ void error(unsigned int line_num, char *file_name, char *opercode)
 	switch (line_num)
 	{
 		case 0:
-		printf("USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		break;
 		case -1:
-		printf("Error: Can't open file %s\n", file_name);
+		fprintf(stderr, "Error: Can't open file %s\n", file_name);
 		break;
 		case -2:
-		printf("Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		break;
 		default:
-		printf("L%d: unknown instruction %s\n", line_num, opercode);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_num, opercode);
 	}
 	exit(EXIT_FAILURE);
 }

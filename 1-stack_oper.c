@@ -38,7 +38,7 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	temp = *stack;
 	while (temp)
 	{
-		printf("%d\n", temp->n);
+		fprintf(stderr, "%d\n", temp->n);
 		temp = temp->next;
 	}
 }
@@ -51,11 +51,11 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 void pint(stack_t **stack, unsigned int line_number)
 {
 	if (*stack)
-		printf("%d\n", (*stack)->n);
+		fprintf(stderr, "%d\n", (*stack)->n);
 	else
 	{
 		stack_free(*stack);
-		printf("L%u: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -83,7 +83,7 @@ void pop(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-		printf("L%u: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
