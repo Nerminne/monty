@@ -48,7 +48,7 @@ void test_file(char *file_name)
 			}
 		}
 	}
-	fclose(ptr), free(lineptr), stack_free(stack); }
+	fclose(ptr), free(lineptr), stack_free(stack), exit(EXIT_SUCCESS); }
 /**
  * executing - executing the operation
  * @oper: operation to be executed
