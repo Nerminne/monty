@@ -12,7 +12,6 @@ int main(int argc, char **argv)
 	test_file(argv[1]);
 	return (0);
 }
-
 /**
  * error - printing error on process fail
  * @line_num: line number where error was found
@@ -22,6 +21,7 @@ int main(int argc, char **argv)
  */
 void error(unsigned int line_num, char *file_name, char *opercode)
 {
+	(void)opercode;
 	switch (line_num)
 	{
 		case 0:
@@ -34,7 +34,7 @@ void error(unsigned int line_num, char *file_name, char *opercode)
 		fprintf(stderr, "Error: malloc failed\n");
 		break;
 		default:
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_num, opercode);
+		break;
 	}
 	exit(EXIT_FAILURE);
 }

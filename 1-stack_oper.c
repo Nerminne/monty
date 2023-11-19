@@ -2,10 +2,9 @@
 /**
  * push - push number to stack
  * @stack: pointer to linked list
- * @line_number: line number
  * Return: nothing
  */
-void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+void push(stack_t **stack)
 {
 	stack_t *new_node;
 
@@ -54,9 +53,9 @@ void pint(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "%d\n", (*stack)->n);
 	else
 	{
-		stack_free(*stack);
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-		exit(EXIT_FAILURE);
+		data = -500;
+		return;
 	}
 }
 /**
@@ -84,7 +83,8 @@ void pop(stack_t **stack, unsigned int line_number)
 	else
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-		exit(EXIT_FAILURE);
+		data = -500;
+		return;
 	}
 }
 /**
@@ -97,4 +97,3 @@ void nop(__attribute__((unused)) stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
 }
-

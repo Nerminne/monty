@@ -44,7 +44,7 @@ void test_file(char *file_name);
 int executing(char *oper, stack_t **stack, unsigned int line_num);
 int num_check(char *num, int *n_error);
 void stack_free(stack_t *stack);
-void push(stack_t **stack, __attribute__((unused)) unsigned int line_number);
+void push(stack_t **stack);
 void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number);
@@ -54,4 +54,9 @@ void add(stack_t **stack, unsigned int line_number);
 void swap(stack_t **stack, unsigned int line_number);
 void mod(stack_t **stack, unsigned int line_number);
 void mul(stack_t **stack, unsigned int line_number);
+void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);
+void rotl(stack_t **stack, unsigned int line_number);
+void rotr(stack_t **stack, unsigned int line_number);
+void _div(stack_t **stack, unsigned int line_number);
 #endif

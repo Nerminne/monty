@@ -18,33 +18,35 @@ void test_file(char *file_name)
 		error(-1, file_name, NULL);
 	for (line_num = 1; getline(&lineptr, &n, ptr) != -1; line_num++)
 	{
-		if (lineptr == NULL)
-			error(-2, file_name, NULL);
-		if (lineptr[0] == '#' || strcmp(lineptr, "\n") == 0)
-			continue;
 		oper = strtok(lineptr, " \t\n");
+		if (oper[0] == '#')
+			continue;
 		if (oper)
 		{
-			num = strtok(NULL, " \t\n");
-			if (num)
-				data = num_check(num, &n_error);
-		}
-		if ((n_error && data == -1) || (strcmp(oper, "push") == 0 && num == NULL))
-		{
-			free(lineptr);
-			fprintf(stderr, "L%u: usage: push integer\n", line_num);
-			stack_free(stack), exit(EXIT_FAILURE);
-		}
-		errorr = executing(oper, &stack, line_num);
-		if (errorr)
-		{
-			free(lineptr);
-			stack_free(stack);
-			error(line_num, file_name, oper);
+			if (strcmp(oper, "push") == 0)
+			{
+				num = strtok(NULL, " \t\n");
+				if (num)
+					data = num_check(num, &n_error);
+				if ((n_error && data == -1) || num == NULL)
+				{
+					stack_free(stack), free(lineptr), fclose(ptr);
+					fprintf(stderr, "L%u: usage: push integer\n", line_num);
+					exit(EXIT_FAILURE);
+				}
+				else
+					push(&stack); }
+			else
+			{
+				errorr = executing(oper, &stack, line_num);
+				if (errorr || data == -500)
+				{
+					free(lineptr), stack_free(stack), fclose(ptr);
+					exit(EXIT_FAILURE); }
+			}
 		}
 	}
-	fclose(ptr), free(lineptr), stack_free(stack);
-}
+	fclose(ptr), free(lineptr), stack_free(stack); }
 /**
  * executing - executing the operation
  * @oper: operation to be executed
@@ -55,7 +57,6 @@ void test_file(char *file_name)
 int executing(char *oper, stack_t **stack, unsigned int line_num)
 {
 	instruction_t oper_func[] = {
-		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
@@ -65,6 +66,11 @@ int executing(char *oper, stack_t **stack, unsigned int line_num)
 		{"swap", swap},
 		{"mod", mod},
 		{"mul", mul},
+		{"pchar", pchar},
+		{"pstr", pstr},
+		{"rotl", rotl},
+		{"rotr", rotr},
+		{"div", _div},
 		{NULL, NULL}
 	};
 	int i;
@@ -77,6 +83,7 @@ int executing(char *oper, stack_t **stack, unsigned int line_num)
 			return (0);
 		}
 	}
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_num, oper);
 	return (1);
 }
 /**
