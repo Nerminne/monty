@@ -18,7 +18,7 @@ void test_file(char *file_name)
 		error(-1, file_name, NULL);
 	for (line_num = 1; getline(&lineptr, &n, ptr) != -1; line_num++)
 	{
-		if (lineptr[0] == '#' || strcmp(lineptr, "\n") == 0)
+		if (strcmp(lineptr, "\n") == 0)
 			continue;
 		oper = strtok(lineptr, " \t\n");
 		if (oper[0] == '#')
