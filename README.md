@@ -1,5 +1,5 @@
 <h1>This is a README file for FIFO and LIFO task
 
-<h3> How to use
+<h2> How to use
 
-<./monty bytecode_file>
+./monty bytecode_file
